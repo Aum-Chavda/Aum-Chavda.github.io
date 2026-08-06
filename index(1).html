@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aum Chavda · Autonomous Systems & AI Engineer</title>
+  <meta name="description" content="ML & Robotics Research Engineer. M.Sc. Autonomy Technologies at FAU Erlangen-Nürnberg. Perception, world models, foundation models, and production AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0C10;
+      --bg2:       #111318;
+      --bg3:       #181C24;
+      --border:    #1E2330;
+      --border2:   #252C3A;
+      --text:      #E2E8F4;
+      --text2:     #8A95A8;
+      --text3:     #555E72;
+      --accent:    #4F8EF7;       /* cool electric blue — systems/precision feel */
+      --accent2:   #7B5CF0;       /* violet — research/model depth */
+      --green:     #34C97A;
+      --amber:     #F5A623;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(10,12,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 32px; }
+    section { padding: 96px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.35;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    h1 .dim { color: var(--text2); font-weight: 300; }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-val {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .stat-val span { color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--text3); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── SECTION HEADERS ── */
+    .section-header { margin-bottom: 56px; }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent2);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    h2 .dim { color: var(--text3); font-weight: 300; }
+
+    /* ── FOCUS AREAS ── */
+    .focus-grid { }
+    .focus-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .focus-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .focus-icon { font-size: 24px; margin-bottom: 14px; }
+    .focus-title {
+      font-size: 15px; font-weight: 600; color: var(--text);
+      margin-bottom: 10px; letter-spacing: -0.01em;
+    }
+    .focus-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
+    @media (max-width: 768px) {
+      .focus-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 480px) {
+      .focus-grid { grid-template-columns: 1fr !important; }
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-card.featured { grid-column: span 2; }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-tag-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tag-blue  { background: rgba(79,142,247,0.12); color: var(--accent); border: 1px solid rgba(79,142,247,0.2); }
+    .tag-violet{ background: rgba(123,92,240,0.12); color: var(--accent2); border: 1px solid rgba(123,92,240,0.2); }
+    .tag-green { background: rgba(52,201,122,0.12); color: var(--green); border: 1px solid rgba(52,201,122,0.2); }
+    .tag-amber { background: rgba(245,166,35,0.12); color: var(--amber); border: 1px solid rgba(245,166,35,0.2); }
+
+    .project-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.015em;
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .project-metrics {
+      display: flex; gap: 24px; flex-wrap: wrap;
+    }
+    .metric {
+      display: flex; flex-direction: column;
+    }
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--green);
+    }
+    .metric-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
+    .project-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 28px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .tech-stack { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tech {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text3); padding: 2px 7px;
+      border: 1px solid var(--border2); border-radius: 3px;
+    }
+    .project-link {
+      font-size: 12px; color: var(--accent);
+      display: flex; align-items: center; gap: 5px;
+      text-decoration: none; font-weight: 500;
+      white-space: nowrap;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+    }
+    .skill-area {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .skill-list { display: flex; flex-direction: column; gap: 8px; }
+    .skill-item {
+      font-size: 14px;
+      color: var(--text2);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-item::before {
+      content: ''; width: 4px; height: 4px;
+      border-radius: 50%; background: var(--accent2);
+      flex-shrink: 0;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-meta { }
+    .exp-period {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 6px;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .exp-location {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+    .exp-role {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .exp-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .exp-highlights { display: flex; flex-direction: column; gap: 6px; }
+    .exp-highlight {
+      font-size: 13px; color: var(--text2);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .exp-highlight::before {
+      content: '→'; color: var(--accent); flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-edu { }
+    .edu-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .edu-degree { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .edu-school { font-size: 13px; color: var(--accent); margin-bottom: 12px; }
+    .edu-grades { display: flex; flex-wrap: wrap; gap: 8px; }
+    .grade-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      color: var(--text2);
+    }
+    .grade-pill strong { color: var(--green); font-weight: 500; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 64px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .contact-card h2 { margin-bottom: 16px; }
+    .contact-card p { font-size: 15px; color: var(--text2); margin-bottom: 40px; line-height: 1.7; }
+    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      section { padding: 72px 0; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
+      .contact-card { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">aum_chavda.py</a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-eyebrow">M.Sc. Autonomy Technologies · FAU Erlangen-Nürnberg</div>
+      <h1>
+        ML &amp; Robotics<br/>
+        <span class="dim">Research Engineer</span>
+      </h1>
+      <p class="hero-sub">
+        Building intelligent systems across the full stack —
+        <strong>perception, planning &amp; control, foundation models</strong>,
+        and <strong>production deployment</strong> on constrained hardware.
+        Research-to-deployment, end-to-end.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects →</a>
+        <a href="https://github.com/Aum-Chavda" target="_blank" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:amc.chavda@fau.de" class="btn-secondary">Contact</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">0.128<span>7</span></div>
+          <div class="stat-label">AbsRel · Depth Estimation</div>
+        </div>
+        <div>
+          <div class="stat-val">82<span>%+</span></div>
+          <div class="stat-label">Val Acc · BEV CNN</div>
+        </div>
+        <div>
+          <div class="stat-val">FID <span>15–25</span></div>
+          <div class="stat-label">Synthetic Data · DDPM</div>
+        </div>
+        <div>
+          <div class="stat-val">8×<span>A100</span></div>
+          <div class="stat-label">FAU HPC · DDP Training</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS AREAS -->
+  <section id="focus" style="padding: 72px 0;">
+    <div class="container">
+      <div class="section-header fade-up" style="margin-bottom: 40px;">
+        <div class="section-eyebrow">Core Focus</div>
+        <h2>Where I work <span class="dim">across the stack</span></h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;" class="focus-grid">
+        <div class="focus-card fade-up">
+          <div class="focus-icon">👁</div>
+          <div class="focus-title">Perception</div>
+          <div class="focus-desc">Computer vision, monocular depth, object detection, BEV representation, synthetic data augmentation for sensor-rich pipelines.</div>
+        </div>
+        <div class="focus-card fade-up">
+          <div class="focus-icon">🧭</div>
+          <div class="focus-title">Planning &amp; Control</div>
+          <div class="focus-desc">World models, JEPA-based spatial reasoning, CEM planning, and model-based decision-making for autonomous agents.</div>
+        </div>
+        <div class="focus-card fade-up">
+          <div class="focus-icon">🧠</div>
+          <div class="focus-title">Foundation Models</div>
+          <div class="focus-desc">Vision-language-action models, generative AI (DDPMs), large-scale pre-training, and transfer learning for embodied intelligence.</div>
+        </div>
+        <div class="focus-card fade-up">
+          <div class="focus-icon">⚙️</div>
+          <div class="focus-title">Deployment Layer</div>
+          <div class="focus-desc">TensorRT / ONNX optimisation, edge hardware (NVIDIA Jetson), distributed training on HPC clusters, production system reliability.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">Work</div>
+        <h2>Projects <span class="dim">/ reproductions</span></h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Featured: Depth Anything -->
+        <div class="project-card featured fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-blue">Reproduction</span>
+            <span class="tag tag-blue">Monocular Depth</span>
+            <span class="tag tag-green">CV / Robotics</span>
+          </div>
+          <div class="project-title">Depth Anything V2 — Full Reproduction &amp; Evaluation</div>
+          <div class="project-desc">
+            Reproduced the Depth Anything V2 monocular depth estimation pipeline end-to-end. Built the KITTI Eigen evaluation harness
+            entirely from scratch — no third-party eval scripts. Achieved competitive metrics using ViT-S (the paper uses ViT-L),
+            demonstrating meaningful architectural understanding of the encoder-decoder depth head, metric vs. relative head trade-offs,
+            and the scale-shift alignment required for affine-invariant depth evaluation.
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-val">0.1287</div>
+              <div class="metric-label">AbsRel ↓</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">0.8263</div>
+              <div class="metric-label">δ₁ ↑</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">ViT-S</div>
+              <div class="metric-label">Backbone (vs paper's ViT-L)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">KITTI</div>
+              <div class="metric-label">Eigen Split Eval</div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">PyTorch</span>
+              <span class="tech">ViT</span>
+              <span class="tech">KITTI</span>
+              <span class="tech">Ubuntu 22.04</span>
+              <span class="tech">GTX 1650 Ti</span>
+            </div>
+            <a href="https://github.com/Aum-Chavda/depth-anything-v2-reproduction" target="_blank" class="project-link">
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+
+        <!-- BEV CNN -->
+        <div class="project-card fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-violet">From Scratch</span>
+            <span class="tag tag-green">Production-Grade</span>
+          </div>
+          <div class="project-title">Bird's-Eye View CNN Feature Extractor</div>
+          <div class="project-desc">
+            Built a CNN feature extractor from the ground up in PyTorch — no high-level wrappers. Full OOP design with custom training loops,
+            callback system, gradient checkpointing, and model persistence. Demonstrates production engineering patterns
+            beyond notebook-level prototyping.
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-val">82%+</div>
+              <div class="metric-label">Val Accuracy · CIFAR-10</div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">PyTorch</span>
+              <span class="tech">CNN</span>
+              <span class="tech">OOP</span>
+              <span class="tech">DS&amp;A</span>
+            </div>
+            <a href="https://github.com/Aum-Chavda" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Mini I-JEPA -->
+        <div class="project-card fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-violet">Self-Supervised Learning</span>
+            <span class="tag tag-violet">JEPA · From Scratch</span>
+          </div>
+          <div class="project-title">Mini I-JEPA — Image JEPA from Scratch</div>
+          <div class="project-desc">
+            Built a minimal but complete implementation of I-JEPA (Assran et al., CVPR 2023) from scratch in PyTorch.
+            ViT-Tiny context encoder updated by backprop, EMA-frozen target encoder, and a narrow bottleneck predictor
+            that forces generalisation without reconstruction. Trained on STL-10 (100k unlabelled) on a GTX 1650 Ti.
+            Full production-grade OOP — ABC contracts, Protocol callbacks, O(1) DS&A patch masking, sentinel padding,
+            vectorised torch.gather for patch selection.
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-val">25.2%</div>
+              <div class="metric-label">Linear Probe · STL-10</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">2.5×</div>
+              <div class="metric-label">Above Random Baseline</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">0.2169</div>
+              <div class="metric-label">Best L2 Loss (epoch 2)</div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">PyTorch</span>
+              <span class="tech">ViT-Tiny</span>
+              <span class="tech">EMA</span>
+              <span class="tech">STL-10</span>
+              <span class="tech">OOP</span>
+              <span class="tech">DS&amp;A</span>
+            </div>
+            <a href="https://github.com/Aum-Chavda/mini-ijepa" target="_blank" class="project-link">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- DDPM -->
+        <div class="project-card fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-violet">Generative AI</span>
+            <span class="tag tag-amber">HPC · 8×A100</span>
+          </div>
+          <div class="project-title">Synthetic Dataset Generation via DDPMs</div>
+          <div class="project-desc">
+            DDPM pipeline with SPADE-conditioned U-Net for semantic-to-image synthesis on autonomous driving data.
+            Trained at scale on FAU's HPC cluster using PyTorch DDP across 8 A100 GPUs.
+            Expanded the Cityscapes dataset from ~2,975 to ~10,000 annotated image pairs for downstream perception model training.
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-val">FID 15–25</div>
+              <div class="metric-label">Generation Quality</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">~10k</div>
+              <div class="metric-label">Synthetic Pairs Generated</div>
+            </div>
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">DDPM</span>
+              <span class="tech">SPADE</span>
+              <span class="tech">PyTorch DDP</span>
+              <span class="tech">Cityscapes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- L&T Edge -->
+        <div class="project-card fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-green">Production</span>
+            <span class="tag tag-amber">Edge AI</span>
+          </div>
+          <div class="project-title">Weld Defect Detection · L&amp;T (Production)</div>
+          <div class="project-desc">
+            Deployed a production CV system for automated weld defect detection at Larsen &amp; Toubro.
+            CSP-Darknet53 backbone, Focal Loss (γ=2), active learning pipeline with uncertainty sampling and CLIP-based clustering.
+            Ran ONNX/TensorRT FP16 on Jetson TX2 (JetPack 4.6) with bare-metal systemd deployment.
+            Solved real production challenges: thermal throttling, GStreamer crashes, memory leaks, and catastrophic forgetting via experience replay.
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">YOLOv5</span>
+              <span class="tech">TensorRT</span>
+              <span class="tech">ONNX</span>
+              <span class="tech">Jetson TX2</span>
+              <span class="tech">CLIP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LeWorldModel Seminar -->
+        <div class="project-card fade-up">
+          <div class="project-tag-row">
+            <span class="tag tag-violet">Research</span>
+            <span class="tag tag-violet">JEPA · World Models</span>
+          </div>
+          <div class="project-title">LeWorldModel — Critical Review of End-to-End JEPAs</div>
+          <div class="project-desc">
+            Seminar paper and presentation at FAU MSCS critically reviewing LeWorldModel as a stable end-to-end JEPA architecture.
+            Covered JEPA theory, SIGReg regulariser, CEM planning, and comparative analysis against DINO-WM and PLDM.
+            Extended with a LaTeX comparative architecture table and limitations analysis.
+          </div>
+          <div class="project-footer">
+            <div class="tech-stack">
+              <span class="tech">JEPA</span>
+              <span class="tech">V-JEPA-2</span>
+              <span class="tech">World Models</span>
+              <span class="tech">LaTeX</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">Capabilities</div>
+        <h2>Technical <span class="dim">stack</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card fade-up">
+          <div class="skill-area">Perception &amp; Computer Vision</div>
+          <div class="skill-list">
+            <div class="skill-item">Monocular Depth Estimation</div>
+            <div class="skill-item">Object Detection · Segmentation</div>
+            <div class="skill-item">BEV Representation Learning</div>
+            <div class="skill-item">Vision Transformers (ViT)</div>
+            <div class="skill-item">Active Learning · CLIP-based clustering</div>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-area">Planning, Control &amp; World Models</div>
+          <div class="skill-list">
+            <div class="skill-item">JEPA / V-JEPA-2 architectures</div>
+            <div class="skill-item">CEM-based planning</div>
+            <div class="skill-item">Model-based reinforcement learning</div>
+            <div class="skill-item">Spatial reasoning for autonomous agents</div>
+            <div class="skill-item">Human-System Interaction</div>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-area">Foundation Models &amp; Generative AI</div>
+          <div class="skill-list">
+            <div class="skill-item">Diffusion Models (DDPM · SPADE U-Net)</div>
+            <div class="skill-item">Vision-Language-Action (VLA) Models</div>
+            <div class="skill-item">Large-scale pre-training &amp; fine-tuning</div>
+            <div class="skill-item">Synthetic data generation pipelines</div>
+            <div class="skill-item">Hugging Face Transformers ecosystem</div>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-area">ML Engineering &amp; Deployment</div>
+          <div class="skill-list">
+            <div class="skill-item">PyTorch · PyTorch DDP (multi-GPU)</div>
+            <div class="skill-item">TensorRT FP16 · ONNX optimisation</div>
+            <div class="skill-item">Edge hardware (NVIDIA Jetson TX2)</div>
+            <div class="skill-item">Distributed training on HPC (8× A100)</div>
+            <div class="skill-item">Production debugging · systemd · Linux</div>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-area">Research &amp; Evaluation</div>
+          <div class="skill-list">
+            <div class="skill-item">Paper reproduction methodology</div>
+            <div class="skill-item">Self-Supervised Learning · EMA · Contrastive methods</div>
+            <div class="skill-item">Benchmark design &amp; custom eval harnesses</div>
+            <div class="skill-item">KITTI · Cityscapes · STL-10 · LIBERO</div>
+            <div class="skill-item">Weights &amp; Biases · Hydra · uv</div>
+            <div class="skill-item">Academic writing · LaTeX</div>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-area">Coursework Highlights</div>
+          <div class="skill-list">
+            <div class="skill-item">Pattern Recognition — 1.7</div>
+            <div class="skill-item">Deep Learning — 2.0</div>
+            <div class="skill-item">ML for Engineers I &amp; II — 2.0</div>
+            <div class="skill-item">Autonomous Systems — 2.0</div>
+            <div class="skill-item">AI in Medical Robotics — 2.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">Timeline</div>
+        <h2>Experience <span class="dim">&amp; education</span></h2>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item fade-up">
+          <div class="exp-meta">
+            <div class="exp-period">2023 — Present</div>
+            <div class="exp-company">FAU Erlangen-Nürnberg</div>
+            <div class="exp-location">Erlangen, Germany</div>
+          </div>
+          <div class="exp-detail">
+            <div class="exp-role">M.Sc. Autonomy Technologies</div>
+            <div class="exp-desc">
+              Specialising in Planning &amp; Control and Human-System Interaction.
+              Research spans perception, world models, and foundation model architectures
+              for intelligent systems across robotics, autonomous driving, and applied AI.
+            </div>
+            <div class="exp-highlights">
+              <div class="exp-highlight">Mini I-JEPA — full I-JEPA implementation from scratch, linear probe 25.2% on STL-10</div>
+              <div class="exp-highlight">Seminar paper — critical review of LeWorldModel / end-to-end JEPAs</div>
+              <div class="exp-highlight">Depth Anything V2 full reproduction with custom KITTI evaluation harness</div>
+              <div class="exp-highlight">Synthetic dataset generation via DDPMs — distributed training on 8× A100</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item fade-up">
+          <div class="exp-meta">
+            <div class="exp-period">2022 — 2023</div>
+            <div class="exp-company">Larsen &amp; Toubro</div>
+            <div class="exp-location">India</div>
+          </div>
+          <div class="exp-detail">
+            <div class="exp-role">Computer Vision Engineer</div>
+            <div class="exp-desc">
+              Designed and deployed a production computer vision system end-to-end —
+              from data pipeline and model training through edge optimisation and bare-metal deployment
+              in a live industrial environment.
+            </div>
+            <div class="exp-highlights">
+              <div class="exp-highlight">YOLOv5s · CSP-Darknet53 · Focal Loss γ=2 · active learning with CLIP-based clustering</div>
+              <div class="exp-highlight">ONNX → TensorRT FP16 on Jetson TX2 — real-time inference on constrained hardware</div>
+              <div class="exp-highlight">Bare-metal systemd deployment · resolved thermal throttling and pipeline instability in production</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-eyebrow">Background</div>
+        <h2>About <span class="dim">me</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <p>
+            I'm an Autonomy Technologies M.Sc. student at FAU Erlangen-Nürnberg with a background spanning
+            <strong>ML research, robotics, and production AI engineering</strong>. My work covers the full pipeline —
+            from reading a paper and building an evaluation harness to shipping a model on constrained edge hardware
+            in a live industrial environment.
+          </p>
+          <p>
+            Prior to my Master's, I deployed computer vision systems at scale in industrial settings,
+            owning the full loop: data pipeline, model training, TensorRT optimisation, and bare-metal production maintenance.
+            That experience taught me what separates a research prototype from a system that runs reliably under real-world conditions.
+          </p>
+          <p>
+            I'm open to roles across <strong>autonomous driving, robotics, industrial AI, medical imaging, and foundation model research</strong> —
+            wherever perception, planning, or large-scale model engineering is at the core.
+            Currently seeking a <strong>research or engineering internship (6+ months)</strong>, available from August/September 2026.
+          </p>
+        </div>
+        <div class="about-edu fade-up">
+          <div class="edu-item">
+            <div class="edu-degree">M.Sc. Autonomy Technologies</div>
+            <div class="edu-school">FAU Erlangen-Nürnberg · 2023 – present</div>
+            <div class="edu-grades">
+              <span class="grade-pill">Pattern Recognition <strong>1.7</strong></span>
+              <span class="grade-pill">Deep Learning <strong>2.0</strong></span>
+              <span class="grade-pill">ML for Engineers I &amp; II <strong>2.0</strong></span>
+              <span class="grade-pill">Autonomous Systems <strong>2.0</strong></span>
+              <span class="grade-pill">AI in Medical Robotics <strong>2.0</strong></span>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-degree">Open to roles in</div>
+            <div class="edu-school">Research · Engineering · Applied AI</div>
+            <div class="edu-grades">
+              <span class="grade-pill">Autonomous Driving</span>
+              <span class="grade-pill">Robotics &amp; Embodied AI</span>
+              <span class="grade-pill">Foundation Model Research</span>
+              <span class="grade-pill">Industrial AI</span>
+              <span class="grade-pill">Medical Imaging AI</span>
+              <span class="grade-pill">Generative AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card fade-up">
+        <div class="section-eyebrow" style="text-align:center; margin-bottom: 16px;">Open to opportunities</div>
+        <h2>Let's build something.</h2>
+        <p>
+          Open to research and engineering internships (6+ months) across autonomous systems,
+          robotics, ML research, and applied AI — in any industry where perception, planning,
+          or foundation models are at the core. Available from August / September 2026 · Based in Erlangen, Germany.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:amc.chavda@fau.de" class="contact-link">
+            ✉ amc.chavda@fau.de
+          </a>
+          <a href="https://linkedin.com/in/meet-aum-chavda" target="_blank" class="contact-link">
+            in / meet-aum-chavda
+          </a>
+          <a href="https://github.com/Aum-Chavda" target="_blank" class="contact-link">
+            ⌥ github.com/Aum-Chavda
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      aum-chavda.github.io · Built with precision, deployed with intent
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
